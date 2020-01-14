@@ -1,0 +1,9 @@
+/////////////////
+Known Issues
+/////////////////
+
+[1] 
+Raw fastq file of K6KOP902_S40 sample from <RNAseq_Scarisbrik> has issues related to string.
+While using trimmomatic.py, it magically gains whitespaces in output strings.
+The problem was avoided using temp/trimmomatic_general.py
+However, keep in mind that this mforge has some string errors. (and I don't know why)

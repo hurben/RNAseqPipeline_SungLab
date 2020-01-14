@@ -1,0 +1,9 @@
+#mm10 reference genome related
+mm10_ref	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref/genome.fa
+mm10_gtf	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref/genes.gtf
+mm10_dir	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref
+
+#qc jar file
+trim_jar	/mforge/local/biotools/trimmomatic/trimmomatic-0.38/trimmomatic-0.38.jar
+adapter_info	/mforge/local/biotools/trimmomatic/trimmomatic-0.38/adapters/TruSeq3-PE-2.fa
+adapter_r1_info	/research/labs/surgresearch/jsung/m221138/tools/bbmap/resources/adapters.fa
