@@ -66,7 +66,7 @@ if __name__ == '__main__':
 			PE_a_in = file_dir + token[0]
 			PE_b_in = file_dir + token[1]
 
-			cmd = 'STAR --runThreadN 8 --genomeDir %s --sjdbGTFfile %s --outFileNamePrefix ./%s/%s --outSAMtype BAM SortedByCoordinate --readFilesIn %s %s' % (ref_dir, mouse_gtf_dir, out_file_prefix, out_file_prefix, PE_a_in, PE_b_in)
+			cmd = 'STAR --runThreadN 8 --genomeDir %s --sjdbGTFfile %s --quantMode TranscriptomeSAM GeneCounts --outFileNamePrefix ./%s/%s --outSAMtype BAM SortedByCoordinate --readFilesIn %s %s' % (ref_dir, mouse_gtf_dir, out_file_prefix, out_file_prefix, PE_a_in, PE_b_in)
 			#your CL would look like this
 			print (cmd)
 			#run
