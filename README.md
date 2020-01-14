@@ -1,6 +1,11 @@
-#RNA-seq Pipeline for Sung Lab
+RNA-seq Pipeline for Sung Lab
+=============================
 
-##Intended Workflow 1 > 2 > 3 > 4
+Benjamin Hur
+------------
+hur.benjamin@mayo.edu
+
+###Intended Workflow 1 > 2 > 3 > 4
 
 1. Trimming : trimmomatic
 > trimmomatic.py -i [input_list]
@@ -12,6 +17,7 @@
 > star_align.py -i [input_list]
 
 4. Annotation & DEG : DESEQ
+> N/A at the moment
 
 5. Others
 -Defined functions for multiple usage
