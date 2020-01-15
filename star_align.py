@@ -20,23 +20,30 @@ if __name__ == '__main__':
 	import FL
 	import argparse
 
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-i', '--input_file', dest = 'input_file', help='input should be list of files')
+	parser.add_argument('-s', '--species', dest = 'species', help='mouse or human')
+	args = parser.parse_args()
+	input_file = args.input_file
+	species = args.species
+
+	if input_file == None:
+		print ("[Error] Please Define the read size of your reads")
+		quit()
+
 	#Browse data.locations, 
 	#get the directory of ref
 	#get the directory that will store indexing file 
 	#  > Note that the index files should be stored at the same directory of the reference genome
 	#get the directory of the gtf file
-	ref_dir  = FL.access_data().get_ref_dir()
-	mouse_ref_dir  = FL.access_data().get_mouse_ref()
-	mouse_gtf_dir  = FL.access_data().get_mouse_gtf()
-
-	parser = argparse.ArgumentParser()
-	parser.add_argument('-i', '--input_file', dest = 'input_file', help='input should be list of files')
-	args = parser.parse_args()
-	input_file = args.input_file
-
-	if input_file == None:
-		print ("[Error] Please Define the read size of your reads")
-		quit()
+	if species == "mouse":
+		ref_root_dir  = FL.access_data().get_dir('mm10_dir')
+		ref_dir  = FL.access_data().get_dir('mm10_ref')
+		gtf_dir  = FL.access_data().get_dir('mm10_gtf')
+	if species == "human":
+		ref_root_dir  = FL.access_data().get_dir('hg38_dir')
+		ref_dir  = FL.access_data().get_dir('hg38_ref')
+		gtf_dir  = FL.access_data().get_dir('hg38_gtf')
 
 	input_file_open = open(input_file,'r')
 	input_file_readlines = input_file_open.readlines()
@@ -66,7 +73,7 @@ if __name__ == '__main__':
 			PE_a_in = file_dir + token[0]
 			PE_b_in = file_dir + token[1]
 
-			cmd = 'STAR --runThreadN 8 --genomeDir %s --sjdbGTFfile %s --quantMode TranscriptomeSAM GeneCounts --outFileNamePrefix ./%s/%s --outSAMtype BAM SortedByCoordinate --readFilesIn %s %s' % (ref_dir, mouse_gtf_dir, out_file_prefix, out_file_prefix, PE_a_in, PE_b_in)
+			cmd = 'STAR --runThreadN 8 --genomeDir %s --sjdbGTFfile %s --quantMode TranscriptomeSAM GeneCounts --outFileNamePrefix ./%s/%s --outSAMtype BAM SortedByCoordinate --readFilesIn %s %s' % (ref_root_dir, gtf_dir, out_file_prefix, out_file_prefix, PE_a_in, PE_b_in)
 			#your CL would look like this
 			print (cmd)
 			#run

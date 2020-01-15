@@ -19,25 +19,33 @@ if __name__ == '__main__':
 	import FL
 	import argparse
 
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-r', '--readsize', dest = 'read_size', help='readsize - 1, integer')
+	parser.add_argument('-s', '--species', dest = 'species', help='mouse or human')
+	args = parser.parse_args()
+
+	read_size = args.read_size
+	species = args.species
+
 	#Browse data.locations, 
 	#get the directory of ref
 	#get the directory that will store indexing file 
 	#  > Note that the index files should be stored at the same directory of the reference genome
 	#get the directory of the gtf file
-	ref_dir  = FL.access_data().get_ref_dir()
-	mouse_ref_dir  = FL.access_data().get_mouse_ref()
-	mouse_gtf_dir  = FL.access_data().get_mouse_gtf()
-
-	parser = argparse.ArgumentParser()
-	parser.add_argument('-r', '--readsize', dest = 'read_size', help='readsize - 1, integer')
-	args = parser.parse_args()
-	read_size = args.read_size
+	if species == "mouse":
+		ref_root_dir  = FL.access_data().get_dir('mm10_dir')
+		ref_dir  = FL.access_data().get_dir('mm10_ref')
+		gtf_dir  = FL.access_data().get_dir('mm10_gtf')
+	if species == "human":
+		ref_root_dir  = FL.access_data().get_dir('hg38_dir')
+		ref_dir  = FL.access_data().get_dir('hg38_ref')
+		gtf_dir  = FL.access_data().get_dir('hg38_gtf')
 
 	if read_size == None:
 		print ("[Error] Please Define the read size of your reads")
 		quit()
 
-	cmd = 'STAR --runThreadN 4 --runMode genomeGenerate --genomeDir %s --genomeFastaFiles %s --sjdbGTFfile %s --sjdbOverhang %s' % (ref_dir, mouse_ref_dir, mouse_gtf_dir, read_size)
+	cmd = 'STAR --runThreadN 8 --runMode genomeGenerate --genomeDir %s --genomeFastaFiles %s --sjdbGTFfile %s --sjdbOverhang %s' % (ref_root_dir, ref_dir, gtf_dir, read_size)
 	#your CL would look like this
 	print (cmd)
 	#run
