@@ -121,6 +121,7 @@ class after_alignment:
 		#[2] write meta information of output_meta_txt
 		output_meta_txt.write('sample_name\tcondition\n')
 		output_txt.write('GeneSymbol')
+		print (condition_dict)
 		for condition in list(condition_dict.keys()):
 			sample_list = condition_dict[condition]
 			for sample_name in sample_list:
@@ -140,8 +141,6 @@ class after_alignment:
 
 		print ("[Notice] DONE!")
 		output_txt.close()
-
-
 
 
 if __name__ == "__main__":
