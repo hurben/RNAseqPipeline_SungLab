@@ -1,7 +1,11 @@
 #mm10 reference genome related
+mm10_dir	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref
 mm10_ref	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref/genome.fa
 mm10_gtf	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref/genes.gtf
-mm10_dir	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref
+#hg38 reference genome related
+hg38_dir	/research/labs/surgresearch/jsung/m221138/ref/hg38_ref
+hg38_ref	/research/labs/surgresearch/jsung/m221138/ref/hg38_ref/genome.fa
+hg38_gtf	/research/labs/surgresearch/jsung/m221138/ref/hg38_ref/genes.gtf
 
 #qc jar file
 trim_jar	/mforge/local/biotools/trimmomatic/trimmomatic-0.38/trimmomatic-0.38.jar
