@@ -12,6 +12,7 @@ if __name__ == '__main__':
 	import sys
 	import os
 	sys.path.insert(1, '/research/labs/surgresearch/jsung/m221138/code')
+	#change path if FL is located elsewhere
 	import FL
 	import argparse
 

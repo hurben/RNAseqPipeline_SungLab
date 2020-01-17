@@ -5,6 +5,8 @@ Benjamin Hur
 ------------
 Contact: hur.benjamin@mayo.edu
 
+If you are not working at mforge, you might have to change some directories
+
 ### Intended Workflow 1 > 2 > 3 > 4
 
 ##### 1. Trimming : trimmomatic
