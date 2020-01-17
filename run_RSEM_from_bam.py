@@ -37,8 +37,4 @@ if __name__ == '__main__':
 			rsem_cmd = '%s -p 8 --alignments --paired-end %s %s %s' % (rsem_dir, sample_file, ref_dir, sample_name)
 			print (rsem_cmd)
 			os.system(rsem_cmd)
-			break
-
-
-
 

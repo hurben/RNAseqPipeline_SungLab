@@ -31,6 +31,10 @@ Defined functions for multiple usage
 
 Summarizing results of alignments performed by STAR. It summarizes unique mapping, multi loci, many loci, unmapped.... ETC.
 
+> run_RSEM_from_bam.py
+
+...
+
 ##### important_examples/
 1. The directory contains how [input_list] should look like.
 2. Simple shell files that shows the command line how to be excecuted.
