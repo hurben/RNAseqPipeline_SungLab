@@ -16,13 +16,16 @@ Contact: hur.benjamin@mayo.edu
 ##### 3. Alignmnet : STAR
 > star_align.py -i [input_list]
 
-##### 4. Annotation & DEG : DESEQ
-> N/A at the moment
+##### 4. DEG : DESeq2
+> prepare_DESeq2.py -i [input_list]
+> deseq2.r [input_data] [input_meta_data] [output_name]
 
 ##### 5. Others
--Defined functions for multiple usage
 > FL.py
+Defined functions for multiple usage
 
+> alignment_summary.py -i [input_list] [output_name]
+Summarizing results of alignments performed by STAR. It summarizes unique mapping, multi loci, many loci, unmapped.... ETC.
 
 ##### important_examples/
 1. The directory contains how [input_list] should look like.
