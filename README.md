@@ -22,10 +22,12 @@ Contact: hur.benjamin@mayo.edu
 
 ##### 5. Others
 > FL.py
--Defined functions for multiple usage
+
+Defined functions for multiple usage
 
 > alignment_summary.py -i [input_list] [output_name]
--Summarizing results of alignments performed by STAR. It summarizes unique mapping, multi loci, many loci, unmapped.... ETC.
+
+Summarizing results of alignments performed by STAR. It summarizes unique mapping, multi loci, many loci, unmapped.... ETC.
 
 ##### important_examples/
 1. The directory contains how [input_list] should look like.
