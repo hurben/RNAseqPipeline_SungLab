@@ -42,8 +42,9 @@ pdf(output_pdf_label)
 ggplot(df, aes(x=log2FC, y=pvalue))+ coord_cartesian(xlim=c(-5,5), ylim=c(0,5))+ geom_point(colour="grey") +
 geom_point(data = sig_red_subset, colour="red") +
 geom_point(data = sig_blue_subset, colour="blue") +
-geom_text_repel(data=sig_red_subset, aes(log2FC, pvalue, label=genes), colour="red") +
-geom_text_repel(data=sig_blue_subset, aes(log2FC, pvalue, label=genes), colour="blue")
+geom_text_repel(data=sig_red_subset, aes(log2FC, pvalue, label=genes), colour="red", size=2) +
+geom_text_repel(data=sig_blue_subset, aes(log2FC, pvalue, label=genes), colour="blue", size=2) +
+ylab("-10 log (pvalue)")
 
 dev.off()
 
@@ -52,5 +53,6 @@ output_pdf <- paste(output_prefix, ".pdf", sep="")
 pdf(output_pdf)
 ggplot(df, aes(x=log2FC, y=pvalue))+ coord_cartesian(xlim=c(-5,5), ylim=c(0,5))+ geom_point(colour="grey") +
 geom_point(data = sig_red_subset, colour="red") +
-geom_point(data = sig_blue_subset, colour="blue")
+geom_point(data = sig_blue_subset, colour="blue")+
+ylab("-10log (pvalue)")
 dev.off()
