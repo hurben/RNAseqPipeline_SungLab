@@ -24,6 +24,11 @@ If you are not working at mforge, you might have to change some directories
 > deseq2.r [input_data] [input_meta_data] [output_name]
 
 ##### 5. Others
+
+> data.locations
+
+A text file that contains paths to materials that are used in FL. Modify this file at your enviornment
+
 > FL.py
 
 Defined functions for multiple usage
@@ -39,6 +44,9 @@ Not in use at the moment.
 > DEG_to_VolcanoPlot.r
 
 Drawing Volcano plots from < deseq2.r > results
+
+
+
 
 ##### important_examples/
 1. The directory contains how [input_list] should look like.
