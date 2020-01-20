@@ -1,5 +1,16 @@
+#deseq2.r                        20.01.15
+#hur.benjamin@mayo.edu
+#
+#run deseq2 for rawcounts
+#
+#[input data] and [input meta data] can be attained by using "prepare_DESeq2.py"
+#
+#cmd : deseq2.r [input data] [input meta data] [output name]
+
+
 library(DESeq2)
 
+#example data
 #input_data <- read.csv('/Users/m221138/Scarisbrick_Project/RNAseq/deseq2/overall.tsv', sep="\t", row.names=1, header=TRUE)
 #input_meta_data <- read.csv('/Users/m221138/Scarisbrick_Project/RNAseq/deseq2/overall.meta.tsv', sep="\t", header=TRUE, row.names=1)
 

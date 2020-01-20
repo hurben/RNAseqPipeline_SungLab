@@ -35,10 +35,15 @@ Summarizing results of alignments performed by STAR. It summarizes unique mappin
 
 ...
 
+> DEG_to_VolcanoPlot.r
+
+Drawing Volcano plots from < deseq2.r > results
+
 ##### important_examples/
 1. The directory contains how [input_list] should look like.
-2. Simple shell files that shows the command line how to be excecuted.
+2. Shell scripts shows the command line how to be excecuted.
 
-Note that [star_aligned.list] I am strictly defining "#case" and "#control" to seperate samples for DESeq2. 
+Important note for [star_aligned.list].
+I am strictly defining "#case" and "#control" to seperate samples for DESeq2. 
 Might change in the future.
 

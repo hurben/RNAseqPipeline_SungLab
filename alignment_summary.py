@@ -12,8 +12,6 @@ if __name__ == '__main__':
 
 	import sys
 	import os
-	sys.path.insert(1, '/research/labs/surgresearch/jsung/m221138/code')
-	import FL
 	import argparse
 
 	parser = argparse.ArgumentParser()

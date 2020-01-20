@@ -1,4 +1,9 @@
-#STAR INDEXED
+#data.locations 
+#hur.benjamin@mayo.edu
+#This file contains directories for my scripts and accessed by "FL.py"
+#first column will be the key (or indicator) for retrieving the directories in the second column
+#
+#STAR indexing related
 #mm10 reference genome related
 mm10_dir	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref
 mm10_ref	/research/labs/surgresearch/jsung/m221138/ref/mm10_ref/genome.fa

@@ -21,8 +21,8 @@ if __name__ == '__main__':
 	#get the directory that will store indexing file 
 	#  > Note that the index files should be stored at the same directory of the reference genome
 	#get the directory of the gtf file
-	adapter_info  = FL.access_data().get_adapter_info()
-	trim_jar  = FL.access_data().get_trim_jar()
+	adapter_info  = FL.access_data().get_dir('adapter_info')
+	trim_jar  = FL.access_data().get_dir('trim_jar')
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-i', '--fastqlist', dest = 'input_file', help='list of fastqs delimiter ","')

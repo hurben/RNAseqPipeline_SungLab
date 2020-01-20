@@ -1,5 +1,7 @@
 #run_rsem_from_bam.py							#2020.01.15
 #hur.benjamin@mayo.edu
+#
+#run RSEM for "TPM" calculation.
 
 if __name__ == '__main__':
 
@@ -21,6 +23,10 @@ if __name__ == '__main__':
 
 	if species == "human":
 		ref_dir = FL.access_data().get_dir('hg38_ref_rsem')
+	if species == "mouse":
+		ref_dir = FL.access_data().get_dir('mm10_ref_rsem')
+		print ("Currently I did not prepare this reference")
+		quit()
 
 	input_list_file = open(input_list_file,'r')
 	input_list_readlines = input_list_file.readlines()

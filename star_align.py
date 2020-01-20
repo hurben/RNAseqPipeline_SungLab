@@ -10,6 +10,8 @@
 #
 #Star Alignment
 #Important files: /research/labs/surgresearch/jsung/m221138/code/data.locations
+#
+#IMPORTANT MEMO: Design for paired end sequences.
 
 
 if __name__ == '__main__':
