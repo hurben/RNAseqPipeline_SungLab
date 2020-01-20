@@ -20,6 +20,7 @@ If you are not working at mforge, you might have to change some directories
 
 ##### 4. DEG : DESeq2
 > prepare_DESeq2.py -i [input_list]
+
 > deseq2.r [input_data] [input_meta_data] [output_name]
 
 ##### 5. Others
