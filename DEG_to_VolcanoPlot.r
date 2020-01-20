@@ -39,7 +39,7 @@ sig_blue_subset <- subset(sig_subset, log2FC < -1.6)
 output_pdf_label <- paste(output_prefix, ".label.pdf", sep="")
 pdf(output_pdf_label)
 
-ggplot(df, aes(x=log2FC, y=pvalue))+ coord_cartesian(xlim=c(-4,4), ylim=c(0,5))+ geom_point(colour="grey") +
+ggplot(df, aes(x=log2FC, y=pvalue))+ coord_cartesian(xlim=c(-5,5), ylim=c(0,5))+ geom_point(colour="grey") +
 geom_point(data = sig_red_subset, colour="red") +
 geom_point(data = sig_blue_subset, colour="blue") +
 geom_text_repel(data=sig_red_subset, aes(log2FC, pvalue, label=genes), colour="red") +
@@ -50,7 +50,7 @@ dev.off()
 #Plot without labels
 output_pdf <- paste(output_prefix, ".pdf", sep="")
 pdf(output_pdf)
-ggplot(df, aes(x=log2FC, y=pvalue))+ coord_cartesian(xlim=c(-4,4), ylim=c(0,5))+ geom_point(colour="grey") +
+ggplot(df, aes(x=log2FC, y=pvalue))+ coord_cartesian(xlim=c(-5,5), ylim=c(0,5))+ geom_point(colour="grey") +
 geom_point(data = sig_red_subset, colour="red") +
 geom_point(data = sig_blue_subset, colour="blue")
 dev.off()

@@ -28,7 +28,14 @@ dds <- DESeqDataSetFromMatrix(countData = cts,
                               design = ~ condition)
 
 deseq_result <- DESeq(dds)
-res <- results(deseq_result)
+
+#res <- results(deseq_result)
+#controlling the comparision order of conditions
+#by default, it will compare conditions in alphabatic order. i.e. control vs case
+#but I want case vs control for log2FC
+res <- results(deseq_result, contrast=c("condition", "case","control"))
+
+
 pvalue_orded_results <- res[order(res$pvalue),]
 write.csv(as.data.frame(pvalue_orded_results), file=output_file)
 

@@ -8,6 +8,15 @@
 #2. dataframe ( row x column = sampleID x condition )
 #
 #I might accidently compressed to much information in FL...
+#
+#Memo: Just to make things easy, prepare the input list in order of 
+#
+#case
+#data 1
+#data 2
+#control
+#data 1
+#data 2
 
 if __name__ == '__main__':
 
