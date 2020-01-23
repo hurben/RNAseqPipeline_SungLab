@@ -7,93 +7,135 @@
 #Memo: Drawing heatmap in case of "TREE CUT"
 #
 #cmd: Rscript draw_heatmap.r [input deg matrix] [input predefined gene list] [output prefix]
+
+#Don't learn anything in this stupid script...
  
 library(gplots)
 library(pheatmap)
 library(RColorBrewer)
 
+
+#Functions ==================================================================
+get_barcode <- function(subset_df_pval, pval_cutline)
+{
+    barcode <- 0
+    if (subset_df_pval < pvalue_cutline)
+    {
+        barcode <- 1
+    }
+    return(barcode)
+}
+
+get_df <- function(data_file)
+{
+    deg_df <-read.csv(data_file, sep=",", header=TRUE, row.names=1)
+    deg_df <- as.data.frame(deg_df[,1:5])
+    return (deg_df)
+}
+
+remove_na <- function(df)
+{
+    df <- df[complete.cases(df),]
+    return(df)
+}
+
+get_subset_df <- function(df, gene_list)
+{
+    subset_df <- subset(df, rownames(df) %in% gene_list)
+	subset_df <- subset_df[order(row.names(subset_df)), ]
+    return (subset_df)
+}
+
+#==============================================================================
+
+
+#Input Handling ===============================================================
+#Get Intersection sets (Gene symbol) from three different inputs 
+#Might have been wise to do this process with python...
+df <- get_df('/Users/m221138/Scarisbrick_Project/RNAseq/deseq2/klk6.overall.deg.csv')
+m_df <- get_df('/Users/m221138/Scarisbrick_Project/RNAseq/deseq2/klk6.male.deg.csv')
+f_df <- get_df('/Users/m221138/Scarisbrick_Project/RNAseq/deseq2/klk6.female.deg.csv')
+
+df <- remove_na(df)
+m_df <- remove_na(m_df)
+f_df <- remove_na(f_df)
+    
+df_gene_list <- row.names(df)
+f_df_gene_list <- row.names(f_df)
+m_df_gene_list <- row.names(m_df)
+
+common_gene_list <- intersect(intersect(df_gene_list,m_df_gene_list),f_df_gene_list)
+
+df <- get_subset_df(df, common_gene_list)
+f_df <- get_subset_df(f_df, common_gene_list)
+m_df <- get_subset_df(m_df, common_gene_list)
+
 args <- commandArgs(trailingOnly=TRUE)
-
-#for cut-tree, currently not in use
-#library(dendextend)
-
-#test dataset
-deg_data_matrix <- '/Users/m221138/Scarisbrick_Project/RNAseq/deseq2/klk6.overall.deg.csv'
-deg_data_f_matrix <- '/Users/m221138/Scarisbrick_Project/RNAseq/deseq2/klk6.male.deg.csv'
-deg_data_m_matrix <- '/Users/m221138/Scarisbrick_Project/RNAseq/deseq2/klk6.female.deg.csv'
-
 predefined_gene_list <- args[1]
-output_pdf <- paste(predefined_gene_list, '.heatmap.pdf', sep="")
-
-deg_df <-read.csv(deg_data_matrix, sep=",", header=TRUE, row.names=1)
-deg_f_df <-read.csv(deg_data_f_matrix, sep=",", header=TRUE, row.names=1)
-deg_m_df <-read.csv(deg_data_m_matrix, sep=",", header=TRUE, row.names=1)
-
-deg_df <- as.data.frame(deg_df)
-
-
-head(deg_df)
 predefined_gene_list <- read.csv(predefined_gene_list, header=FALSE)$V1
 predefined_gene_list <- as.character(predefined_gene_list)
 
-#print (predefined_gene_list)
+output_dir <- args[2]
+output_file <- paste(output_dir,'.heatmap.pdf', sep="")
 
-subset_df <- subset(deg_df, rownames(deg_df) %in% predefined_gene_list)
-subset_f_df <- subset(deg_f_df, rownames(deg_f_df) %in% predefined_gene_list)
-subset_m_df <- subset(deg_m_df, rownames(deg_m_df) %in% predefined_gene_list)
+print (output_file)
+print ("Given predefined gene list (before filtering)")
+print (length(predefined_gene_list))
+
+subset_df <- get_subset_df(df, predefined_gene_list)
+subset_f_df <- get_subset_df(f_df, predefined_gene_list)
+subset_m_df <- get_subset_df(m_df, predefined_gene_list)
+#==============================================================================
 
 
-heatmap_ready_df <- data.frame(overall= subset_df$log2FoldChange, 
+#Making Barcodes to mark significant genes=====================================
+heatmap_ready_df <- data.frame(overall=subset_df$log2FoldChange, 
                                female=subset_f_df$log2FoldChange,
                                male=subset_m_df$log2FoldChange)
-rownames(heatmap_ready_df) <- row.names(subset_df)
 
-subset_df
+subset_df_gene_list <- row.names(subset_df)
 pvalue_cutline <- 0.05
-
 gene_name_with_barcode_list <- c()
-for (gene_name in row.names(subset_df))
+
+for (gene_name in subset_df_gene_list)
 {
     barcode_list <- c(0,0,0)
     subset_df_pval <- subset_df[gene_name,"pvalue"]
     subset_f_df_pval <- subset_f_df[gene_name,"pvalue"]
     subset_m_df_pval <- subset_m_df[gene_name,"pvalue"]
-    if (subset_df_pval < pvalue_cutline)
-    {
-        barcode_list[1] <- 1
-    }   
-    if (subset_f_df_pval < pvalue_cutline)
-    {
-        barcode_list[2] <- 1
-    }        
-    if (subset_m_df_pval < pvalue_cutline)
-    {
-        barcode_list[3] <- 1
-    }
+    
+    barcode_list[1] <- get_barcode(subset_df_pval, pvalue_cutline)
+    barcode_list[2] <- get_barcode(subset_f_df_pval, pvalue_cutline)
+    barcode_list[3] <- get_barcode(subset_m_df_pval, pvalue_cutline)
 
-#     print (gene_name)
-#     print (barcode_list)
     gene_name_with_barcode <- paste(gene_name,'_', barcode_list[1], barcode_list[2],barcode_list[3],sep="")
     #print (gene_name_with_barcode)
     gene_name_with_barcode_list <- c(gene_name_with_barcode_list, gene_name_with_barcode)
 }
 
-#print (gene_name_with_barcode_list)
-#print (row.names(heatmap_ready_df))
-
 rownames(heatmap_ready_df) <- gene_name_with_barcode_list
+#=============================================================================
+
+#Creating Figures ==============================================
+
 heatmap_ready_df <- as.matrix(heatmap_ready_df)
+break_list = seq(-1.6,1.6, by=0.05)
+color = colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(length(break_list))
 
-my_palette <- colorRampPalette(c("green", "black", "red"))(n = 50)
-
-#hclust.average <- function(x) hclust(x, method="average")
-# heatmap_results <- heatmap.2(heatmap_ready_df, hclustfun=hclust.average, 
-#                              col=my_palette, 
-#                              symm=F, symkey=F, symbreak=F, trace="none")
-
-pdf(output_pdf)
-#pheatmap_results <- pheatmap(heatmap_ready_df, cluster_cols=FALSE)
-pheatmap(heatmap_ready_df, cluster_cols=FALSE)
+heatmap_size <- length(subset_df_gene_list)
+pdf(output_file)
+if (heatmap_size < 10)
+{
+	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 4, cellwidth=20, cellheight=5)
+}
+if (heatmap_size > 10 && heatmap_size < 50)
+{
+	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 4, cellwidth=20, cellheight=10)
+}
+if (heatmap_size > 50)
+{
+	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 4, cellwidth=20)
+}
 dev.off()
 
-
+#================================================================
