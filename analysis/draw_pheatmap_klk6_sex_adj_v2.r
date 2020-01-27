@@ -126,7 +126,7 @@ rownames(heatmap_ready_df) <- gene_name_with_barcode_list
 #Creating Figures ==============================================
 
 heatmap_ready_df <- as.matrix(heatmap_ready_df)
-break_list = seq(-1.6,1.6, by=0.05)
+break_list = seq(-1.0,1.0, by=0.05)
 color = colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(length(break_list))
 
 heatmap_ready_df

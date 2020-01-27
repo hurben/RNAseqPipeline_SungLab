@@ -69,26 +69,16 @@ m_df_gene_list <- row.names(m_df)
 
 common_gene_list <- intersect(intersect(intersect(df_gene_list,m_df_gene_list),f_df_gene_list),s_df_gene_list)
 
-df <- get_subset_df(df, common_gene_list)
-s_df <- get_subset_df(s_df, common_gene_list)
-f_df <- get_subset_df(f_df, common_gene_list)
-m_df <- get_subset_df(m_df, common_gene_list)
+subset_df <- get_subset_df(df, common_gene_list)
+subset_s_df <- get_subset_df(s_df, common_gene_list)
+subset_f_df <- get_subset_df(f_df, common_gene_list)
+subset_m_df <- get_subset_df(m_df, common_gene_list)
 
 args <- commandArgs(trailingOnly=TRUE)
-predefined_gene_list <- args[1]
-predefined_gene_list <- read.csv(predefined_gene_list, header=FALSE)$V1
-predefined_gene_list <- as.character(predefined_gene_list)
 
-output_dir <- args[2]
+output_dir <- args[1]
 output_file <- paste(output_dir,'.heatmap.pdf', sep="")
 
-#print (output_file)
-#print (length(predefined_gene_list))
-
-subset_df <- get_subset_df(df, predefined_gene_list)
-subset_s_df <- get_subset_df(s_df, predefined_gene_list)
-subset_f_df <- get_subset_df(f_df, predefined_gene_list)
-subset_m_df <- get_subset_df(m_df, predefined_gene_list)
 #==============================================================================
 
 
@@ -126,7 +116,7 @@ rownames(heatmap_ready_df) <- gene_name_with_barcode_list
 #Creating Figures ==============================================
 
 heatmap_ready_df <- as.matrix(heatmap_ready_df)
-break_list = seq(-1.6,1.6, by=0.05)
+break_list = seq(-1.0,1.0, by=0.05)
 color = colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(length(break_list))
 
 heatmap_ready_df
@@ -137,15 +127,15 @@ if (heatmap_size <= 10)
 {
 	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 7, cellwidth=20, cellheight=7)
 }
-if (heatmap_size > 10 && heatmap_size <= 30)
+if (heatmap_size > 10 && heatmap_size < 50)
 {
 	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 5, cellwidth=20, cellheight=10)
 }
-if (heatmap_size > 30 && heatmap_size <= 100)
+if (heatmap_size > 50 && heatmap_size < 100)
 {
 	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 4, cellwidth=20)
 }
-if (heatmap_size > 100)
+if (heatmap_size >= 100)
 	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 2, cellwidth=20)
 dev.off()
 

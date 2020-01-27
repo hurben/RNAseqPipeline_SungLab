@@ -129,15 +129,15 @@ if (heatmap_size <= 10)
 {
 	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 7, cellwidth=20, cellheight=7)
 }
-if (heatmap_size > 10 && heatmap_size < 50)
+if (heatmap_size > 10 && heatmap_size <= 30)
 {
 	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 5, cellwidth=20, cellheight=10)
 }
-if (heatmap_size > 50 && heatmap_size < 100)
+if (heatmap_size > 30 && heatmap_size <= 100)
 {
 	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 4, cellwidth=20)
 }
-if (heatmap_size >= 100)
+if (heatmap_size > 100)
 {
 	pheatmap(heatmap_ready_df, breaks=break_list, color=color,cluster_cols=FALSE, fontsize = 2, cellwidth=20)
 }
